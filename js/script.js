@@ -46,7 +46,7 @@ function game(roundNumber = 5) {
     let scorePlayer = 0;
     let scoreComputer = 0;
     let outcome;
-    for (let i = 0; i < roundNumber; i++) {
+    while (scorePlayer < roundNumber && scoreComputer < roundNumber) {
         playerSelection = prompt("Please enter your move: ");
         outcome = playRound(playerSelection, computerPlay());
         console.log(outcome);
