@@ -1,2 +1,3 @@
 # rock-paper-scissors
-k
+
+Done as part of [The Odin Project](https://www.theodinproject.com/).
