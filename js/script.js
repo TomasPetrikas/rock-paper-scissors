@@ -41,6 +41,41 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-const playerSelection = "rock";
-const computerSelection = computerPlay();
-console.log(playRound(playerSelection, computerSelection));
+// Main game loop
+function game(roundNumber = 5) {
+    let scorePlayer = 0;
+    let scoreComputer = 0;
+    let outcome;
+    for (let i = 0; i < roundNumber; i++) {
+        playerSelection = prompt("Please enter your move: ");
+        outcome = playRound(playerSelection, computerPlay());
+        console.log(outcome);
+        
+        // Maybe not the best way to check who won, but eh
+        if (outcome.includes("win")) {
+            scorePlayer++;
+        }
+        else if (outcome.includes("lose")) {
+            scoreComputer++;
+        }
+    }
+
+    // Write final results
+    console.log("-".repeat(40));
+    console.log("Your score: " + scorePlayer);
+    console.log("Computer score: " + scoreComputer);
+    if (scorePlayer > scoreComputer) {
+        console.log("You win!")
+    }
+    else if (scorePlayer < scoreComputer) {
+        console.log("You lose!");
+    }
+    else if (scorePlayer === scoreComputer) {
+        console.log("It's a tie!");
+    }
+    else {
+        console.log("Error: something weird happened");
+    }
+}
+
+game();
