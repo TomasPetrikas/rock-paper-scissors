@@ -42,11 +42,11 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // Main game loop
-function game(roundNumber = 5) {
+function game(targetScore = 5) {
     let scorePlayer = 0;
     let scoreComputer = 0;
     let outcome;
-    while (scorePlayer < roundNumber && scoreComputer < roundNumber) {
+    while (scorePlayer < targetScore && scoreComputer < targetScore) {
         playerSelection = prompt("Please enter your move: ");
         outcome = playRound(playerSelection, computerPlay());
         console.log(outcome);
