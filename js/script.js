@@ -78,4 +78,4 @@ function game(targetScore = 5) {
     }
 }
 
-game();
+// game();
