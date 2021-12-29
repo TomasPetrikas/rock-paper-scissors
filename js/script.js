@@ -92,6 +92,22 @@ function updateScore(winner) {
     }
 }
 
+function updateGameLength() {
+    if (scorePlayer > 0 || scoreComputer > 0) {
+        if (confirm("Are you sure you wish to change game length? This will reset the current scores.")) {
+            scoreTarget = this.value;
+            resetGame();
+        }
+        else {
+            // Reset the dropdown to previous value if canceled
+            this.value = scoreTarget;
+        }
+    }
+    else {
+        scoreTarget = this.value;
+    }
+}
+
 function finishGame() {
     if (scorePlayer > scoreComputer) {
         alert("You won!");
@@ -121,6 +137,7 @@ function game() {
     const rockBtn = document.querySelector("#rock");
     const paperBtn = document.querySelector("#paper");
     const scissorsBtn = document.querySelector("#scissors");
+    const gameLength = document.querySelector("#game-length");
     rockBtn.move = "Rock";
     paperBtn.move = "Paper";
     scissorsBtn.move = "Scissors";
@@ -128,6 +145,8 @@ function game() {
     rockBtn.addEventListener("click", playRound);
     paperBtn.addEventListener("click", playRound);
     scissorsBtn.addEventListener("click", playRound);
+
+    gameLength.addEventListener("change", updateGameLength);
 }
 
 game();

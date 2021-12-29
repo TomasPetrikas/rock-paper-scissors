@@ -11,6 +11,12 @@ body,
   background: black;
 }
 
+#explainer form *,
+#results table *,
+.btn {
+  border: 2px lime solid;
+}
+
 #content {
   display: flex;
   flex-direction: column;
@@ -35,8 +41,17 @@ header h1 {
   padding-top: 7.5vh;
 }
 
-#explainer h2 {
+#explainer h2,
+#explainer form * {
   font-size: 32px;
+}
+
+#explainer form {
+  display: inline;
+}
+
+#explainer form * {
+  background: black;
 }
 
 #results {
@@ -51,7 +66,6 @@ header h1 {
 
 #results table * {
   text-align: center;
-  border: 2px lime solid;
 }
 
 #results table .last-move {
@@ -70,6 +84,5 @@ header h1 {
   font-size: 64px;
   padding: 8px 32px;
   background: darkgreen;
-  border: 2px lime solid;
   border-radius: 20px;
 }
