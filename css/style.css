@@ -1,6 +1,14 @@
 * {
   margin: 0;
   padding: 0;
+  color: white;
+  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+  font-family: cursive, sans-serif;
+}
+
+body,
+.container {
+  background: black;
 }
 
 #content {
@@ -9,19 +17,26 @@
   min-height: 100vh;
 }
 
-h1 {
+header h1 {
+  font-size: 48px;
+  letter-spacing: 2px;
+  word-spacing: 12px;
   display: flex;
   justify-content: center;
   background: darkgreen;
   padding: 32px;
-  color: white;
+  border-bottom: 2px lime solid;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 10vh;
+  padding-top: 7.5vh;
+}
+
+#explainer h2 {
+  font-size: 32px;
 }
 
 #results {
@@ -29,13 +44,14 @@ h1 {
 }
 
 #results table {
+  table-layout: fixed;
   width: 20vw;
   font-size: 24px;
 }
 
 #results table * {
   text-align: center;
-  border: 2px black solid;
+  border: 2px lime solid;
 }
 
 #results table .last-move {
@@ -50,6 +66,10 @@ h1 {
 }
 
 .btn {
+  font-family: sans-serif;
   font-size: 64px;
-  padding: 0 32px;
+  padding: 8px 32px;
+  background: darkgreen;
+  border: 2px lime solid;
+  border-radius: 20px;
 }
