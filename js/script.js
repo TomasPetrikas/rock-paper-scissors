@@ -7,11 +7,17 @@ function computerPlay() {
 }
 
 // Plays a round and returns a string with the result
-function playRound(playerSelection, computerSelection) {
+function playRound() {
+    let playerSelection = this.move;
+    let computerSelection = computerPlay();
+
     // Changes playerSelection to proper form (e.g. "rOcK" => "Rock")
     playerSelection = playerSelection[0].toUpperCase() +
                       playerSelection.slice(1).toLowerCase();
     
+    // console.log("PS: " + playerSelection);
+    // console.log("CS: " + computerSelection);
+
     // Returns an error for an invalid move
     if (moves.indexOf(playerSelection) == -1) {
         return "Error: player move not valid";
@@ -35,8 +41,6 @@ function playRound(playerSelection, computerSelection) {
         return `It's a tie! You both picked ${playerSelection}.`;
     }
     else {
-        // console.log("PS: " + playerSelection);
-        // console.log("CS: " + computerSelection);
         return "Error: unknown outcome";
     }
 }
@@ -79,3 +83,14 @@ function game(targetScore = 5) {
 }
 
 // game();
+
+const rockBtn = document.querySelector("#rock");
+const paperBtn = document.querySelector("#paper");
+const scissorsBtn = document.querySelector("#scissors");
+rockBtn.move = "Rock";
+paperBtn.move = "Paper";
+scissorsBtn.move = "Scissors";
+
+rockBtn.addEventListener("click", playRound);
+paperBtn.addEventListener("click", playRound);
+scissorsBtn.addEventListener("click", playRound);
