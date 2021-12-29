@@ -2,8 +2,7 @@
   margin: 0;
   padding: 0;
   color: white;
-  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
-  font-family: cursive, sans-serif;
+  font-family: cursive, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 body,
@@ -85,4 +84,24 @@ header h1 {
   padding: 8px 32px;
   background: darkgreen;
   border-radius: 20px;
+}
+
+/* Just experimenting, there's definitely better ways to do these */
+
+header h1 {
+  animation-name: fadein;
+  animation-duration: 3s;
+}
+
+.container * {
+  opacity: 0;
+  animation-name: fadein;
+  animation-duration: 0.5s;
+  animation-delay: 2.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadein {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
