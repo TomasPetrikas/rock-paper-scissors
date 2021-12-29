@@ -1,8 +1,13 @@
+@font-face {
+  font-family: z003;
+  src: url(../font/Z003-MediumItalic.ttf);
+}
+
 * {
   margin: 0;
   padding: 0;
   color: white;
-  font-family: cursive, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: z003, sans-serif;
 }
 
 body,
