@@ -1,96 +1,133 @@
-// Global variables are usually a bad idea, but I think it's fine here
-const moves = ["Rock", "Paper", "Scissors"];
+// I don't know how to do this without these global vars, sorry
+let scorePlayer = 0;
+let scoreComputer = 0;
+let scoreTarget = 5;
 
 // Returns a random move from an array of moves
 function computerPlay() {
+    const moves = ["Rock", "Paper", "Scissors"];
     return moves[Math.floor(Math.random() * moves.length)];
 }
 
-// Plays a round and returns a string with the result
+// Plays a round and calls other functions to update the page
 function playRound() {
-    let playerSelection = this.move;
-    let computerSelection = computerPlay();
-
-    // Changes playerSelection to proper form (e.g. "rOcK" => "Rock")
-    playerSelection = playerSelection[0].toUpperCase() +
-                      playerSelection.slice(1).toLowerCase();
+    const playerSelection = this.move;
+    const computerSelection = computerPlay();
     
     // console.log("PS: " + playerSelection);
     // console.log("CS: " + computerSelection);
 
-    // Returns an error for an invalid move
-    if (moves.indexOf(playerSelection) == -1) {
-        return "Error: player move not valid";
-    }
-    
+    updateLastMove(playerSelection, computerSelection);
+
     if (
         playerSelection === "Rock" && computerSelection === "Scissors" ||
         playerSelection === "Paper" && computerSelection === "Rock" ||
         playerSelection === "Scissors" && computerSelection === "Paper"
     ) {
-        return `You win! ${playerSelection} beats ${computerSelection}.`;
+        // Player won
+        updateScore(1);
     }
     else if (
         playerSelection === "Rock" && computerSelection === "Paper" ||
         playerSelection === "Paper" && computerSelection === "Scissors" ||
         playerSelection === "Scissors" && computerSelection === "Rock"
     ) {
-        return `You lose! ${computerSelection} beats ${playerSelection}.`;
+        // Computer won
+        updateScore(-1);
     }
     else if (playerSelection === computerSelection) {
-        return `It's a tie! You both picked ${playerSelection}.`;
+        // Tie
+        updateScore(0); // Technically unnecessary
     }
-    else {
-        return "Error: unknown outcome";
+
+    // Check if anyone won the tournament
+    if (scorePlayer >= scoreTarget || scoreComputer >= scoreTarget) {
+        finishGame();
     }
+}
+
+// Visually updates last move on screen
+function updateLastMove(playerSelection, computerSelection) {
+    const lastMovePlayer = document.querySelector(".last-move.human");
+    const lastMoveComputer = document.querySelector(".last-move.computer");
+
+    // There are probably better ways to do this
+    switch(playerSelection) {
+        case "Rock":
+            lastMovePlayer.textContent = "🪨";
+            break;
+        case "Paper":
+            lastMovePlayer.textContent = "🧾";
+            break;
+        case "Scissors":
+            lastMovePlayer.textContent = "✂️";
+    }
+    switch(computerSelection) {
+        case "Rock":
+            lastMoveComputer.textContent = "🪨";
+            break;
+        case "Paper":
+            lastMoveComputer.textContent = "🧾";
+            break;
+        case "Scissors":
+            lastMoveComputer.textContent = "✂️";
+    }
+}
+
+// Updates score visually and internally
+// winner > 0  =>  player won
+// winner = 0  =>  tie
+// winner < 0  =>  computer won
+function updateScore(winner) {
+    const scoreElementPlayer = document.querySelector(".score.human");
+    const scoreElementComputer = document.querySelector(".score.computer");
+
+    if (winner > 0) {
+        scorePlayer++;
+        scoreElementPlayer.textContent = "Score: " + scorePlayer;
+    }
+    else if (winner < 0) {
+        scoreComputer++;
+        scoreElementComputer.textContent = "Score: " + scoreComputer;
+    }
+}
+
+function finishGame() {
+    if (scorePlayer > scoreComputer) {
+        alert("You won!");
+    }
+    else if (scorePlayer < scoreComputer) {
+        alert("You lost!");
+    }
+    resetGame();
+}
+
+function resetGame() {
+    const lastMovePlayer = document.querySelector(".last-move.human");
+    const lastMoveComputer = document.querySelector(".last-move.computer");
+    const scoreElementPlayer = document.querySelector(".score.human");
+    const scoreElementComputer = document.querySelector(".score.computer");
+
+    lastMovePlayer.textContent = "?";
+    lastMoveComputer.textContent = "?";
+    scoreElementPlayer.textContent = "Score: 0";
+    scoreElementComputer.textContent = "Score: 0";
+    scorePlayer = 0;
+    scoreComputer = 0;
 }
 
 // Main game loop
-function game(targetScore = 5) {
-    let scorePlayer = 0;
-    let scoreComputer = 0;
-    let outcome;
-    while (scorePlayer < targetScore && scoreComputer < targetScore) {
-        playerSelection = prompt("Please enter your move: ");
-        outcome = playRound(playerSelection, computerPlay());
-        console.log(outcome);
-        
-        // Maybe not the best way to check who won, but eh
-        if (outcome.includes("win")) {
-            scorePlayer++;
-        }
-        else if (outcome.includes("lose")) {
-            scoreComputer++;
-        }
-    }
-
-    // Write final results
-    console.log("-".repeat(40));
-    console.log("Your score: " + scorePlayer);
-    console.log("Computer score: " + scoreComputer);
-    if (scorePlayer > scoreComputer) {
-        console.log("You win!")
-    }
-    else if (scorePlayer < scoreComputer) {
-        console.log("You lose!");
-    }
-    else if (scorePlayer === scoreComputer) {
-        console.log("It's a tie!");
-    }
-    else {
-        console.log("Error: something weird happened");
-    }
+function game() {
+    const rockBtn = document.querySelector("#rock");
+    const paperBtn = document.querySelector("#paper");
+    const scissorsBtn = document.querySelector("#scissors");
+    rockBtn.move = "Rock";
+    paperBtn.move = "Paper";
+    scissorsBtn.move = "Scissors";
+    
+    rockBtn.addEventListener("click", playRound);
+    paperBtn.addEventListener("click", playRound);
+    scissorsBtn.addEventListener("click", playRound);
 }
 
-// game();
-
-const rockBtn = document.querySelector("#rock");
-const paperBtn = document.querySelector("#paper");
-const scissorsBtn = document.querySelector("#scissors");
-rockBtn.move = "Rock";
-paperBtn.move = "Paper";
-scissorsBtn.move = "Scissors";
-
-rockBtn.addEventListener("click", playRound);
-paperBtn.addEventListener("click", playRound);
-scissorsBtn.addEventListener("click", playRound);
+game();
